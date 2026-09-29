@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClintFlow - AI Writing Tool</title>
+    <link rel="stylesheet" href="TechStartup.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&display=swap" rel="stylesheet">
+  </head>
+  <!-- LOADING SCREEN -->
+<div class="loader" id="loader">
+    <div class="loader-bg"></div>
+    <div class="loader-content">
+        <div class="loader-logo">ClintFlow</div>
+        <div class="loader-tagline">Write Smarter. Create Faster.</div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+        <div class="loader-percent">0%</div>
+    </div>
+</div>
+  <body>
+
+    <!--HEADER-->
+    <header id="home">
+      <nav class="navbar">
+        <div class="logo">ClintFlow</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <div class="nav-cta">
+            <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
+            <a href="#" class="btn-online">Log In</a>
+            <a href="#" class="btn-primary">Get Started</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+<section id="hero" class="hero-section">
+    <div class="hero-content">
+        <div class="hero-badge">🤖 Powered by Advanced AI</div>
+        <h1>Write Better Content <span class="gradient-text">10x Faster</span> With AI</h1>
+        <p>ClintFlow helps writers, marketers and businesses create high quality content in seconds. No more staring at blank pages.</p>
+        <div class="hero-buttons">
+            <a href="#" class="btn-primary">Start Writing Free</a>
+            <a href="#" class="btn-outline">Watch Demo →</a>
+        </div>
+        <p class="hero-note">No credit card required • Free forever plan • Cancel anytime</p>
+    </div>
+    <div class="hero-image">
+        <div class="dashboard-mockup">
+            <div class="mockup-header">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="mockup-body">
+                <div class="mockup-sidebar">
+                    <div class="sidebar-item active">📝 New Document</div>
+                    <div class="sidebar-item">📄 Blog Post</div>
+                    <div class="sidebar-item">📧 Email Copy</div>
+                    <div class="sidebar-item">📱 Social Media</div>
+                </div>
+                <div class="mockup-editor">
+                    <div class="editor-title">My Blog Post</div>
+                    <div class="editor-line long"></div>
+                    <div class="editor-line medium"></div>
+                    <div class="editor-line short"></div>
+                    <div class="editor-line long"></div>
+                    <div class="editor-line medium"></div>
+                    <div class="ai-suggestion">
+                        <span>✨ AI Suggestion</span>
+                        <div class="editor-line long"></div>
+                        <div class="editor-line medium"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--AI DEMO SECTION-->
+<section class="demo-section">
+   <div class="demo-container">
+       <div class="section-badge">⚡ Try It LIve</div>
+       <h2>Try ClintFlow <span class="gradient-text">Right Now</span></h2>
+       <p>Type a topic and watch our AI generate professional content in seconds</p>
+
+
+       <div class="demo-box">
+          <div class="demo-input-area">
+            <div class="select-row">
+               <select id="content-type">
+                  <option value="blog">Blog Post</option>
+                  <option value="email">Email Copy</option>
+                  <option value="social">Social Media Post</option>
+                  <option value="ad">Advertisement Copy</option>
+                  <option value="linkedin">LinkedIn Post</option>
+                  <option value="youtube">Youtube Script</option>
+                  <option value="product">Product Description</option>
+                  <option value="press">Press Release</option>
+                  <option value="caption">Instagram Caption</option>
+                  <option value="headline">Catchy Headlines</option>
+               </select>
+
+               <select id="tone-type">
+                  <option value="professional">Professional Tone</option>
+                  <option value="casual">Casual Tone</option>
+                  <option value="funny">Funny Tone</option>
+                  <option value="formal">Formal Tone</option>
+                  <option value="persuasive">Persuasive Tone</option>
+               </select>
+
+               <select id="length-type">
+                   <option value="short">Short (-100 words)</option>
+                   <option value="medium">Medium (-300 words)</option>
+                   <option value="long">Long (-600 words)</option>
+              </select>
+
+              <select id="language-type">
+                  <option value="English">English</option>
+                  <option value="Spanish">Spanish</option>
+                  <option value="French">French</option>
+                  <option value="German">German</option>
+                  <option value="Portuguese">Portuguese</option>
+                  <option value="Yoruba">Yoruba</option>
+                  <option value="Igbo">Igbo</option>
+                  <option value="Hausa">Hausa</option>
+             </select>
+          </div>
+
+          <div class="textarea-wrapper">
+              <textarea id="user-prompt" placeholder="Enter your topic here... e.g. 'Benefits of morning exercise'"></textarea>
+              <div class="char-warning" id="char-warning" style="display:none">⚠️ Long Topics may produce less focused results.</div>
+              <button id="mic-btn" onclick="startVoiceInput()" type="button">🎤</button>
+          </div>
+
+              <div class="word-count" id="word-count">0 words</div>
+
+              <label class="seo-toggle">
+                  <input type="checkbox" id="seo-boost">
+                  <span>🎯 Optimize for SEO</span>
+              </label>
+
+              <button id="generate-btn" onclick="generateContent()">✨ Generate content</button>
+          </div>
+
+          <div class="demo-output-area">
+              <div class="output-header">
+                  <span>✨ AI OUTPUT</span>
+                  <span id="output-word-count"></span>
+                  <span id="originality-badge" class="originality-badge" style="display:none"></span>
+                  <button id="copy-btn" onclick="copyContent()" style="display:none">Copy</button>
+                  <button id="regenerate-btn" onclick="generateContent()" style="display:none">🔁 Regenerate</button>
+                  <button id="export-btn" onclick="exportContent()" style="display:none">🗒️ Export</button>
+              </div>
+              <div id="output-text" class="output-text">
+                  Your generated content will appear here...
+              </div>
+          </div>
+      </div>
+
+      <div class="history-section">
+             <h3>Recent Generations</h3>
+             <div id="history-list" class="history-list"></div>
+      </div>
+
+    </div>
+</section>
+
+
+<!-- FEATURES SECTION -->
+<section id="features" class="features-section">
+    <div class="features-header">
+        <div class="section-badge">✨ Features</div>
+        <h2>Everything you need to <span class="gradient-text">write faster</span></h2>
+        <p>ClintFlow combines powerful AI with an intuitive interface to supercharge your writing workflow</p>
+    </div>
+
+    <div class="features-grid">
+
+        <div class="feature-card">
+            <div class="feature-icon">🤖</div>
+            <h3>AI Content Generation</h3>
+            <p>Generate high quality blog posts, emails and social media content in seconds with our advanced AI engine.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Lightning Fast</h3>
+            <p>Get full length articles in under 30 seconds. No more spending hours staring at a blank page.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>SEO Optimized</h3>
+            <p>Every piece of content is automatically optimized for search engines to help you rank higher.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🌍</div>
+            <h3>50+ Languages</h3>
+            <p>Write and translate content in over 50 languages to reach a global audience effortlessly.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Analytics Dashboard</h3>
+            <p>Track your content performance with detailed analytics and insights to improve your strategy.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>100% Secure</h3>
+            <p>Your data is fully encrypted and protected. We never share or sell your content to third parties.</p>
+        </div>
+
+    </div>
+</section>
+
+<!--PRICING SECTION-->
+<section id="pricing" class="pricing-section">
+    <div class="pricing-header">
+        <div class="section-badge">💎 Pricing</div>
+        <h2>Simple <span class="gradient-text">transparent </span>pricing</h2>
+        <p>Choose the plan that works best for you. Upgrade or downgrade anytime.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+       <div class="pricing-card">
+           <div class="plan-name">Free</div>
+           <div class="plan-price">$0<span>/month</span></div>
+           <p class="plan-desc">Perfect for getting stareted</p>
+           <ul class="plan-features">
+               <li>✅ 5,000 words per month</li>
+               <li>✅ 10 content templates</li>
+               <li>✅ Basic AI writing</li>
+               <li>✅ 1 user seat</li>
+               <li>❌ SEO optimization</li>
+               <li>❌ Priority support</li>
+           </ul>
+           <a href="#" class="plan-btn outline">Get Started Free</a>
+        </div>
+
+        <div class="pricing-card popular">
+             <div class="popular-badge">Most Popular</div>
+             <div class="plan-name">Pro</div>
+             <div class="plan-price">$29<span>/month</span></div>
+             <p class="plan-desc">Perfect for professionals</p>
+             <ul class="plan-features">
+                <li>✅ 50,000 words per month</li>
+                <li>✅ 50+ content templates</li>
+                <li>✅ Advanced AI writing</li>
+                <li>✅ 3 user seats</li>
+                <li>✅ SEO optimization</li>
+                <li>✅ Priority support</li>
+              </ul>
+              <a href="#" class="plan-btn primary">Get Started</a>
+          </div>
+
+          <div class="pricing-card">
+              <div class="plan-name">Enterprise</div>
+              <div class="plan-price">$99<span>/month</span></div>
+              <p class="plan-desc">Perfect for large teams</p>
+              <ul class="plan-features">
+                  <li>✅ Unlimited words</li>
+                  <li>✅ All content templates</li>
+                  <li>✅ Custom AI training</li>
+                  <li>✅ Unlimited user seats</li>
+                  <li>✅ SEO optimization</li>
+                  <li>✅ 24/7 dedicated support</li>
+              </ul>
+              <a href="#" class="plan-btn outline">Contact Sales</a>
+            </div>
+
+          </div>
+        </section>
+
+    <!--FAQ SECTION-->
+<section id="faq" class="faq-section">
+    <div class="faq-header">
+        <div class="section-badge">❓ FAQ</div>
+        <h2>Frequently asked <span class="gradient-text">questions</span></h2>
+        <p>Everything you need to know about ClintFlow</p>
+    </div>
+
+    <div class="faq-container">
+
+       <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+               <span>What is ClintFlow?</span>
+               <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>ClintFlow is an AI powered writing tool that helps writers,marketers and businesses create high quality content in seconds.From blog posts to social media captions, ClintFlow does it all.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>How does the free plan work?</span>
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>The free plan gives you 5,000 words per month with access to 10 content templates.No credit card required .You can upgrade to Pro or Enterprise anytime you need more.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Is my content unique and plagiarism free?</span>
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Yes! Every piece of content generated by ClintFlow is 100% unique and original. Our AI creates fresh content every time based on your specific inputs and requirements.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                 <span>Can i cancel my subscription anytime?</span>
+                 <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Absolutely! You can cancel your subscription at any time with no questions asked. You will continue to have access until the end of your billing period.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                 <span>What languages does ClintFlow support?</span>
+                 <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>ClintFlow supports over 50 languages including English, Spanish, French, German, Chinese, Arabic and many more. Write and translate content for a global audience effortlessly.</p>
+            </div>
+        </div>
+
+      <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+               <span>Do you offer refunds?</span>
+               <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+               <p>Yes we offer a 30 day money back guarantee on all paid plans. If you are not satisfied with ClintFlow for any reason, contact our support team for a full refund.</p>
+          </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!--CALL TO ACTION-->
+  <section class="cta-section">
+       <div class="cta-container">
+           <div class="cta-badge">🚀 Get Started Today</div>
+           <h2>Ready to write <span class="gradient-text">10x faster?</span></h2>
+           <p>Join over 50,000 writers, marketers and businesses already using ClintFlow to create amazing content every day.</p>
+           <div class="cta-buttons">
+               <a href="#" class="btn-primary">Start Writing Free</a>
+               <a href="#" class="btn-outline">See Pricing</a>
+          </div>
+          <p class="cta-note">No credit card required • Free forver plan • Cancel anytime</p>
+      </div>
+  </section>
+
+  <!--FOOTER-->
+  <footer class="footer">
+      <div class="footer-container">
+          <div class="footer-brand">
+             <div class="logo">ClintFlow</div>
+             <p>The AI writing tool that helps you create better content faster.</p>
+          </div>
+          <div class="footer-links">
+               <h4>Product</h4>
+               <ul>
+                   <li><a href="#features">Features</a></li>
+                   <li><a href="#pricing">Pricing</a></li>
+                   <li><a href="#faq">FAQ</a></li>
+              </ul>
+          </div>
+
+          <div class="footer-links">
+               <h4>Company</h4>
+               <ul>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Careers</a></li>
+               </ul>
+          </div>
+
+          <div class="footer-links">
+              <h4>Legal</h4>
+              <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Cookie Policy</a></li>
+              </ul>
+          </div>
+          <div class="footer-bottom">
+              <p>© 2026 ClintFlow. ALL Rights Reserved.</p>
+              <div class="footer-social">
+                <a href="https://x.com/ClintonOj07" target="_blank">Twitter</a>
+                <a href="https://www.facebook.com/share/1LYmsFqpCp/" target="_blank">Facebook</a>
+                <a href="https://www.instagram.com/clinton.oj7?igsh=MWU5anB1MHZiOG5oaA==" target="_blank">Instagram</a>
+              </div>
+          </div>
+      </footer>
+              <script src="script.js"></script>
+  </body>
+</html>
